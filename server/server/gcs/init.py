@@ -17,7 +17,6 @@ def download_file_into_memory(blob_name: str):
     # using `Bucket.blob` is preferred here.
     blob = bucket.blob(blob_name)
     contents = blob.download_as_bytes()
-    print(contents[0:100])
     return contents
 
 if __name__ == "__main__":
