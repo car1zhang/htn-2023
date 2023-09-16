@@ -5,7 +5,8 @@ from .gcs import stt as gcs_stt
 from .assemblyai import stt as aai_sst
 from pprint import pprint
 
-from .util import find_dominant_speaker, convert_sec_to_timestamp
+from .util.find_dominant_speaker import find_dominant_speaker
+from .util.convert_sec_to_timestamp import seconds_to_timestamp
 
 app = FastAPI()
 
@@ -33,22 +34,22 @@ async def transcribe_audio_aai(blob_name: str):
     timeRanges = []
     for utterance in utterances:
         speaker = utterance.speaker
-        if speaker not in wordCounts.keys:
+        if speaker not in wordCounts.keys():
             wordCounts[speaker] = utterance.words
         else:
             wordCounts[speaker] += utterance.words
             timeRanges.append((utterance.start, utterance.end))
     
     for sentence in stt.get_sentences():
-        for i in range(len(timeRanges)):
-            s,e = timeRanges[i]
-            if s <= sentence.start <= e:
-                print(f"({convert_sec_to_timestamp(sentence.start)}) {sentence.text}")
-                speaker_text.append((convert_sec_to_timestamp(sentence.start), sentence.text))
+        for i, (start, end) in enumerate(timeRanges):
+            if start <= sentence.start <= end:
+                speaker_text.append((seconds_to_timestamp(sentence.start//1000), sentence.text))
                 timeRanges = timeRanges[i:]
                 continue
 
-    return find_dominant_speaker(speaker_text)
+    pprint(speaker_text)
+
+    return speaker_text
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)
