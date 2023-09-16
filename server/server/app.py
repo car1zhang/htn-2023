@@ -5,7 +5,7 @@ from .gcs import stt as gcs_stt
 from .assemblyai import stt as aai_sst
 from pprint import pprint
 
-from .util.find_dominant_speaker import find_dominant_speaker
+from .util import find_dominant_speaker, convert_sec_to_timestamp
 
 app = FastAPI()
 
@@ -28,30 +28,25 @@ async def transcribe_audio_aai(blob_name: str):
     utterances = stt.utterances
 
     # For each utterance, print its speaker and what was said
-    speaker_text = {}
+    speaker_text = []
+    wordCounts = {}
+    timeRanges = []
     for utterance in utterances:
         speaker = utterance.speaker
-        text = utterance.text
-        start_time = utterance.start
-
-        if speaker not in speaker_text:
-            speaker_text[speaker] = {
-                "key": speaker,
-                "sentences": [(start_time, text)],
-                "words": len(text.split())
-            }
+        if speaker not in wordCounts.keys:
+            wordCounts[speaker] = utterance.words
         else:
-            speaker_text[speaker]["sentences"].append((start_time, text))
-            speaker_text[speaker]["words"] += len(text.split())
+            wordCounts[speaker] += utterance.words
+            timeRanges.append((utterance.start, utterance.end))
     
-    # pprint(speaker_text)
-    # pprint(find_dominant_speaker(speaker_text))
-    
-
-    # return {
-    #     "transcript": stt.text,
-    #     "speaker_text": speaker_text
-    # }
+    for sentence in stt.get_sentences():
+        for i in range(len(timeRanges)):
+            s,e = timeRanges[i]
+            if s <= sentence.start <= e:
+                print(f"({convert_sec_to_timestamp(sentence.start)}) {sentence.text}")
+                speaker_text.append((convert_sec_to_timestamp(sentence.start), sentence.text))
+                timeRanges = timeRanges[i:]
+                continue
 
     return find_dominant_speaker(speaker_text)
 
