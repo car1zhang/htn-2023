@@ -44,7 +44,10 @@ async def transcribe_audio_aai(blob_name: str):
     
     pprint(speaker_text)
 
-    return stt.text
+    return {
+        "transcript": stt.text,
+        "speaker_text": speaker_text
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)
