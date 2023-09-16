@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { GoThreeBars } from 'react-icons/go';
-import '../pages/calendar'
 
 
 const Navbar = () => {

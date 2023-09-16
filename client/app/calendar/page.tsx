@@ -2,18 +2,18 @@
 
 import React from 'react';
 
-const Docs: React.FC = () => {
+const Calendar:React.FC = () => {
 
   return (
     <div>
       <header>
-        <h1>Docs</h1>
+        <h1>Calendar</h1>
       </header>
       <main>
-        <h1>HI BITCH</h1>
+        <h1>HI</h1>
       </main>
     </div>
   );
 };
 
-export default Docs;
+export default Calendar;

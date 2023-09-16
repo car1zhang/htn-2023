@@ -7,8 +7,6 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <main className="px-15">
-    <Navbar/>
-    <Link  href="/calendar"></Link>
 
 
       {/* <h1 className="font-serif">Georgia</h1>
