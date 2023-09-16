@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import { GoThreeBars } from 'react-icons/go';
+import { FaBars } from 'react-icons/fa6';
 
 
 const Navbar = () => {
@@ -14,11 +14,11 @@ const Navbar = () => {
   return (
     <div id="navbar">
       <header className="flex flex-col justify-center bg-[#] z-[99999999] min-h-[7vh] py-2 lg:py-4">
-        <div className="container px-4 mx-auto lg:flex lg:items-center m-30 mt-12">
+        <div className="container px-72 mx-auto lg:flex lg:items-center mt-12">
           <div className="flex justify-between items-center">
             <Link legacyBehavior href="/">
               <a>
-                <h2 className="text-5xl text-[#484141] font-title ml-16 font-extrabold text-shadow-5xl">
+                <h2 className="text-5xl text-black font-title font-bold text-shadow-5xl">
                   Keynote
                 </h2>
               </a>
@@ -32,7 +32,7 @@ const Navbar = () => {
                 setShowDropdown(!showDropdown);
               }}
             >
-              <GoThreeBars />
+              <FaBars />
             </button>
           </div>
 
@@ -43,14 +43,14 @@ const Navbar = () => {
             data-test-id="navbar"
           >
             {loggedIn === true ? (
-              <div className='mx-24  '>
-                <Link className="ml-8  hover:bg-red-100 hover:text-[#7C2D12] text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors" href="/calendar"> 
+              <div>
+                <Link className="ml-8 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors" href="/calendar"> 
                  Calendar</Link>
-                 <Link className="ml-12 hover:bg-red-100 hover:text-[#7C2D12] text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"  href="/docs "> 
+                 <Link className="ml-12 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors"  href="/docs "> 
                  Docs</Link>
                 <Link
                   href="/"
-                  className="text-[#484141] hover:bg-red-100 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"
+                  className="text-black hover:bg-red-100 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-4 rounded duration-300 transition-colors"
                   data-test-id={`navbar-logout`}
                   onClick={() => handleClick()}>
                   
@@ -62,9 +62,9 @@ const Navbar = () => {
               <div>
                 
 
-                <Link  legacyBehavior href="/login">
+                <Link legacyBehavior href="/login">
                   <a
-                    className="text-[#484141] hover:bg-red-200 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 mr-16 lg:ml-1 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"
+                    className="text-black hover:bg-red-200 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:ml-1 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"
                     data-test-id={`navbar-login`}
                     onClick={(e) => handleClick()}
                   >

@@ -10,8 +10,13 @@ const config: Config = {
     fontFamily: {
       'sans': ['Lato', 'sans-serif'],
       'title': ['"Playfair Display"', 'serif'],
-      'logo': ['"Playfair Display"', 'serif', '700'], 
       'serif': ['Georgia', 'serif']
+    },
+    colors: {
+      'black': '#484141',
+      'white': '#F0F0F0',
+      'primary': '#9C528B',
+      'secondary': '#CA83DC'
     }
   },
   plugins: [],
