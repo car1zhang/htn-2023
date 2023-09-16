@@ -8,7 +8,7 @@ def transcribe(filebytes: bytes):
     diarization_config = speech.SpeakerDiarizationConfig(
         enable_speaker_diarization=True,
         min_speaker_count=1,
-        max_speaker_count=2,
+        max_speaker_count=5,
     )
 
     config = speech.RecognitionConfig(
@@ -25,12 +25,14 @@ def transcribe(filebytes: bytes):
     print("Waiting for operation to complete...")
     response = client.recognize(config=config, audio=audio)
 
+    print(response.results)
+
     # The transcript within each result is separate and sequential per result.
     # However, the words list within an alternative includes all the words
     # from all the results thus far. Thus, to get all the words with speaker
     # tags, you only have to take the words list from the last result:
-    result = response.results[0]
-    
+    result = response.results[-1]
+
     print("Transcript", result.alternatives[0].transcript)
 
     # print(result)
