@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from .gcs.storage import download_file_into_memory, generate_download_link
 from .gcs import stt as gcs_stt
 from .assemblyai import stt as aai_sst
+from pprint import pprint
 
 app = FastAPI()
 
@@ -25,10 +26,23 @@ async def transcribe_audio_aai(blob_name: str):
     utterances = stt.utterances
 
     # For each utterance, print its speaker and what was said
+    speaker_text = {}
     for utterance in utterances:
         speaker = utterance.speaker
         text = utterance.text
-        print(f"Speaker {speaker}: {text}")
+        start_time = utterance.start
+
+        if speaker not in speaker_text:
+            speaker_text[speaker] = {
+                "key": speaker,
+                "sentences": [(start_time, text)],
+                "words": len(text.split())
+            }
+        else:
+            speaker_text[speaker]["sentences"].append((start_time, text))
+            speaker_text[speaker]["words"] += len(text.split())
+    
+    pprint(speaker_text)
 
     return stt.text
 
