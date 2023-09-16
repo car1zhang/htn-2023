@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="flex justify-between items-center">
             <Link legacyBehavior href="/">
               <a>
-                <h2 className="text-4xl text-[#484141] font-title ml-16 font-extrabold text-shadow-5xl">
+                <h2 className="text-5xl text-[#484141] font-title ml-16 font-extrabold text-shadow-5xl">
                   Keynote
                 </h2>
               </a>
