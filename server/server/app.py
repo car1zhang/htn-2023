@@ -43,11 +43,13 @@ async def transcribe_audio_aai(blob_name: str):
             wordCounts[speaker] += utterance.words
         timeRanges.append((speaker, utterance.start, utterance.end))
     
-    dominant_speaker_key = wordCounts.keys()[wordCounts.values().index(max(wordCounts.values()))]
+    # dominant_speaker_key = wordCounts[max(wordCounts, key=wordCounts.get)]
+    dominant_speaker_key = sorted(wordCounts.keys(), key=lambda speaker_key: len(wordCounts[speaker_key]), reverse=True)[0]
     timeRanges = [timeRange for timeRange in timeRanges if timeRange[0] == dominant_speaker_key]
 
     for sentence in stt.get_sentences():
-        for i, (start, end) in enumerate(timeRanges):
+        for i, (_, start, end) in enumerate(timeRanges):
+            # _, start, end = ele
             if start <= sentence.start <= end:
                 speaker_text.append((seconds_to_timestamp(sentence.start//1000), sentence.text))
                 timeRanges = timeRanges[i:]
