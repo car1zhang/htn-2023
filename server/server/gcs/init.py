@@ -1,3 +1,7 @@
+from pydub import AudioSegment
+from pydub.playback import play
+import io
+
 from google.cloud import storage
 
 BUCKET_NAME = "keynote-videos"
@@ -12,9 +16,13 @@ def download_file_into_memory(blob_name: str):
     # any content from Google Cloud Storage. As we don't need additional data,
     # using `Bucket.blob` is preferred here.
     blob = bucket.blob(blob_name)
-    contents = blob.download_as_string()
-
+    contents = blob.download_as_bytes()
+    print(contents[0:100])
     return contents
 
 if __name__ == "__main__":
-    print(download_file_into_memory("Upgrade instructions.txt"))
+    audio_bytes = download_file_into_memory("test-recording.mp3")
+    song = AudioSegment.from_file(io.BytesIO(audio_bytes), format="mp3")
+    play(song)
+
+
