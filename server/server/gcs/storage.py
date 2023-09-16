@@ -21,8 +21,8 @@ def download_file_into_memory(blob_name: str):
     return contents
 
 if __name__ == "__main__":
-    audio_bytes = download_file_into_memory("test-recording.mp3")
-    song = AudioSegment.from_file(io.BytesIO(audio_bytes), format="mp3")
+    audio_bytes = download_file_into_memory("test.wav")
+    song = AudioSegment.from_file(io.BytesIO(audio_bytes), format="wav")
     play(song)
 
 
