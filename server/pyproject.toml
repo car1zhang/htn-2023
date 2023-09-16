@@ -11,6 +11,7 @@ fastapi = "^0.103.1"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
 python-dotenv = "^1.0.0"
 pymongo = {extras = ["srv"], version = "^4.5.0"}
+google-cloud-storage = "^2.10.0"
 
 
 [build-system]
