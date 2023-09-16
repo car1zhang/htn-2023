@@ -27,6 +27,9 @@ async def transcribe_audio_aai(blob_name: str):
     
     # extract all utterances from the response
     utterances = stt.utterances
+    pprint(utterances)
+
+    print([sentence.text for sentence in stt.get_sentences()])
 
     # For each utterance, print its speaker and what was said
     speaker_text = []
@@ -38,8 +41,9 @@ async def transcribe_audio_aai(blob_name: str):
             wordCounts[speaker] = utterance.words
         else:
             wordCounts[speaker] += utterance.words
-            timeRanges.append((utterance.start, utterance.end))
-    
+        timeRanges.append((speaker, utterance.start, utterance.end))
+    dom_speaker=wordCounts
+    print(timeRanges)
     for sentence in stt.get_sentences():
         for i, (start, end) in enumerate(timeRanges):
             if start <= sentence.start <= end:
