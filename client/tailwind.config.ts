@@ -10,6 +10,7 @@ const config: Config = {
     fontFamily: {
       'sans': ['Lato', 'sans-serif'],
       'title': ['"Playfair Display"', 'serif'],
+      'logo': ['"Playfair Display"', 'serif', '700'], 
       'serif': ['Georgia', 'serif']
     }
   },
