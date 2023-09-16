@@ -1,7 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
-from .gcs.storage import download_file_into_memory
-from .gcs.stt import transcribe
+from .gcs.storage import download_file_into_memory, generate_download_link
+from .gcs import stt as gcs_stt
+from .assemblyai import stt as aai_sst
 
 app = FastAPI()
 
@@ -12,8 +13,24 @@ async def root():
 @app.post("/transcribe")
 async def transcribe_audio(blob_name: str):
     audio_bytes =  download_file_into_memory(blob_name)
-    stt = transcribe(audio_bytes)
+    stt = gcs_stt.transcribe(audio_bytes)
     return stt
+
+@app.post("/transcribe-aai")
+async def transcribe_audio_aai(blob_name: str):
+    audio_link = generate_download_link(blob_name)
+    stt = aai_sst.transcribe(audio_link)
+    
+    # extract all utterances from the response
+    utterances = stt.utterances
+
+    # For each utterance, print its speaker and what was said
+    for utterance in utterances:
+        speaker = utterance.speaker
+        text = utterance.text
+        print(f"Speaker {speaker}: {text}")
+
+    return stt.text
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)
