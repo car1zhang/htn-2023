@@ -17,27 +17,19 @@ export default function Calendar() {
   const getNumDays = () => (new Date(year, month + 1, 0)).getDate()
   const getFirstDay = () => (new Date(year, month, 1)).getDay()
 
-  function Day(day, isActive, key) {
+  function Day(day: number, isActive: boolean, key: number) {
     if(isActive) {
       return (
-        <div key={key} className="mb-2 p-2 w-[calc(14%-2px)] h-28 bg-light text-xs md:text-base text-white font-mono">
-          <h1 className={clsx({
-            '-ml-1 -mt-1 px-1 sm:px-2 py-1 w-fit bg-medium rounded-full': (new Date(year, month, day)).toDateString() === (new Date()).toDateString(),
-          })}>{day}</h1>
-          {events.map(event => ((new Date(year, month, day)).toDateString() === (new Date(event['date'])).toDateString() ?
+        <div key={key} className="mb-2 p-2 w-[calc(14%-2px)] h-28 bg-white text-xs md:text-base text-white font-mono">
+          <h1 className={(new Date(year, month, day)).toDateString() === (new Date()).toDateString() ? 
+            '-ml-1 -mt-1 px-1 sm:px-2 py-1 w-fit bg-secondary text-white rounded-full' : ''
+          }>{day}</h1>
+          {notes.map(note => ((new Date(year, month, day)).toDateString() === (new Date(note['date'])).toDateString() ?
             (window.innerWidth < 640 ? 
-            <div key={event['_id']} className={clsx('mt-1 px-2 py-1.5 h-16 rounded-md cursor-pointer border-2 border-white', {
-              'bg-medium': event['type'] === 'meeting',
-              'bg-dark': event['type'] === 'lesson',
-              'bg-gold': event['type'] === 'contest' || event['type'] === 'other'
-            })} onClick={() => setFocusedEvent(event)}/>
+            <div key={note['_id']} className='mt-1 px-2 py-1.5 h-16 rounded-md cursor-pointer border-2 bg-primary'/>
             :
-            <h1 key={event['_id']} className={clsx('mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer border-2 border-white overflow-hidden', {
-              'bg-medium': event['type'] === 'meeting',
-              'bg-dark': event['type'] === 'lesson',
-              'bg-gold': event['type'] === 'contest' || event['type'] === 'other'
-            })} onClick={() => setFocusedEvent(event)}>
-              {event['name']}
+            <h1 key={note['_id']} className='mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer border-2 border-white overflow-hidden'>
+              {note['title']}
             </h1>)
           : '' ))}
         </div>
@@ -76,7 +68,7 @@ export default function Calendar() {
   }
 
   React.useEffect(() => {
-    fetch('http://127.0.0.1:8000/notes', {'cache': 'no-store'}).then(res => res.json()).then(data => {
+    fetch('http://127.0.0.1:8000/notes/', {'cache': 'no-store'}).then(res => res.json()).then(data => {
       setNotes(data)
       renderCalendar()
     })
@@ -84,43 +76,9 @@ export default function Calendar() {
 
   return (
     <div className="w-full">
-      {events.length ?
+      {notes.length ?
         <div className="my-8 w-full">
-          <div className="w-full flex justify-between items-center">
-            <motion.button onClick={prevMonth} className="px-4 py-1 bg-medium text-white hover:text-gold hover:bg-dark border-4 border-light hover:border-gold transition-text hover:duration-200" variants={slideInLeft} initial="hidden" animate="visible">
-              <FaAngleLeft />
-            </motion.button>
-
-            <div className="flex items-center">
-              <AnimatePresence>
-                <motion.h1 
-                key={month}
-                variants={swipeVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="absolute inset-x-1/3 text-2xl lg:text-3xl text-white text-center">
-                  {window.innerWidth < 640 ? monthNames[month].substring(0, 3) : monthNames[month]} {window.innerWidth < 640 ? "'" + year % 100 : year}
-                </motion.h1>
-              </AnimatePresence>
-            </div>
-
-            <motion.button onClick={nextMonth} className="px-4 py-1 bg-medium text-white hover:text-gold hover:bg-dark border-4 border-light hover:border-gold transition-text hover:duration-200" variants={slideInRight} initial="hidden" animate="visible">
-              <FaAngleRight />
-            </motion.button>
-          </div>
-
-          <AnimatePresence>
-            <motion.div
-            key={month}
-            variants={swipeVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="mt-6 p-2 pb-0 absolute left-6 right-6 md:left-15vw md:right-15vw bg-medium flex flex-wrap justify-between">
-              {calendar}
-            </motion.div>
-          </AnimatePresence>
+          {calendar}
         </div>
       : ''}
       <div className="h-[calc(7rem*7)]" />
