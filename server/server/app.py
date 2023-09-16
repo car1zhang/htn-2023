@@ -5,6 +5,8 @@ from .gcs import stt as gcs_stt
 from .assemblyai import stt as aai_sst
 from pprint import pprint
 
+from .util.find_dominant_speaker import find_dominant_speaker
+
 app = FastAPI()
 
 @app.get("/")
@@ -42,12 +44,16 @@ async def transcribe_audio_aai(blob_name: str):
             speaker_text[speaker]["sentences"].append((start_time, text))
             speaker_text[speaker]["words"] += len(text.split())
     
-    pprint(speaker_text)
+    # pprint(speaker_text)
+    # pprint(find_dominant_speaker(speaker_text))
+    
 
-    return {
-        "transcript": stt.text,
-        "speaker_text": speaker_text
-    }
+    # return {
+    #     "transcript": stt.text,
+    #     "speaker_text": speaker_text
+    # }
+
+    return find_dominant_speaker(speaker_text)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)
