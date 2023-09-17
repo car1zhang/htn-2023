@@ -10,7 +10,7 @@ def get_short_description(transcript: str):
     additional_command='in 3rd person, write a short summary of what is discussed in the input provided',
     temperature=0.3,
     ) 
-    print('Summary:', response.summary)
+    return response.summary
 
 def get_title(transcript: str):
     response = co.summarize( 
@@ -21,7 +21,7 @@ def get_title(transcript: str):
     additional_command='create a 10 word title describing the input',
     temperature=0.3,
     ) 
-    print('Summary:', response.summary)
+    return response.summary
 
 def gen_notes(chunk: str):
     response = co.generate(
@@ -33,4 +33,3 @@ def gen_notes(chunk: str):
         stop_sequences=[],
         return_likelihoods='NONE')
     return response.generations[0].text
-
