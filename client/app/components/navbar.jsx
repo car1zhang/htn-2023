@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaBars } from 'react-icons/fa6';
+import { FaBars, FaMagnifyingGlass } from 'react-icons/fa6';
 
 
-const Navbar = () => {
+const Navbar = ({ setIsSearch }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true); // Set as always logged in for development
 
@@ -14,15 +14,16 @@ const Navbar = () => {
   return (
     <div id="navbar">
       <header className="flex flex-col justify-center bg-[#] z-[99999999] min-h-[7vh] py-2 lg:py-4">
-        <div className="container px-72 mx-auto lg:flex lg:items-center mt-12">
+        <div className="container px-72 mx-auto flex items-center mt-12">
           <div className="flex justify-between items-center">
             <Link legacyBehavior href="/">
               <a>
-                <h2 className="text-5xl text-black font-title font-bold text-shadow-5xl">
+                <h2 className="text-5xl text-black font-title font-bold drop-shadow-md">
                   Keynotes
                 </h2>
               </a>
             </Link>
+            <FaMagnifyingGlass className="text-black text-2xl ml-5 translate-y-1.5 hover:cursor-pointer" onClick={() => setIsSearch(true)}/>
 
             <button
               className="border border-solid border-gray-200 px-3 py-1 rounded text-gray-200 opacity-50 hover:opacity-75 lg:hidden cursor-pointer"
