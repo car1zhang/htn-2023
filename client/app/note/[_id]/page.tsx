@@ -65,6 +65,13 @@ export default function Note({ params }: { params: { _id: string }}) {
           <h2 className="mb-3 font-serif text-md">{date.toLocaleDateString()}</h2>
         </div>
         <hr className="mb-3" />
+          <form onSubmit={e => {
+            e.preventDefault()
+            
+          }}>
+            <input placeholder='Ask me anything...' className="bg-white w-full p-3 text-md mb-3" />
+          </form>
+        <hr className="mb-3" />
         { isEditNotes ?
             <textarea className="mb-3 font-serif text-md bg-white w-full h-full leading-relaxed" rows={10} onChange={e => setNotes(e.target.value)} value={notes} onBlur={async e => {
               await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
