@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 from typing import List
 
 from server.cohere.semanticSearch import getTopFiveRelevantThings
+from server.cohere.chat import chat
 
 from .models import Note, NoteUpdate
 
@@ -65,3 +66,9 @@ def get_search_results(query: str, request: Request):
   for doc in docs:
     doc['description'] = str(doc['description'])
   return getTopFiveRelevantThings(query, docs)
+
+@router.get("/chat/{query}", response_description="Returns an answer to user's query based on current note data", response_class=str)
+def chat(id: str, query: str, request: Request):
+  doc = request.app.database["notes"].find_one({"_id": id})
+  notes = [p for p in doc['notes'].split('\n')]
+  return chat(query, notes).text
