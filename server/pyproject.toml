@@ -15,6 +15,7 @@ google-cloud-storage = "^2.10.0"
 pydub = "^0.25.1"
 google-cloud-speech = "^2.21.0"
 assemblyai = "^0.17.0"
+cohere = "^4.26.1"
 
 
 [build-system]
