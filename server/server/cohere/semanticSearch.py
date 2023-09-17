@@ -1,5 +1,5 @@
 import cohere 
-co = cohere.Client(f"bFlGhfFebfCjRFPvseWOAp0riM6K0GBtREcjWVYF")
+co = cohere.Client(f"60t30veschZlra1cDn6auatOgcI26ySvpkKdFz4B")
 
 # Get top five related documents using reranking
 def getTopFiveRelevantThings(query, docs):

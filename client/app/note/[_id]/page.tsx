@@ -1,6 +1,8 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
+import BackButton from "../../images/back.png"
+import Image from 'next/image'
 
 export default function Note({ params }: { params: { _id: string }}) {
 
@@ -25,11 +27,14 @@ export default function Note({ params }: { params: { _id: string }}) {
   }, [])
 
   return (
+    <div>
+
     <div className="px-72">
-      {recordingId.length > 0 ?
+      {title.length > 0 ?
       <div className="my-8 text-black flex flex-col">
+        <Link href="/calendar"><h1 className='mb-3 hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] '> ← Back </h1> </Link>
         { isEditTitle ?
-          <input className="mb-3 font-serif text-3xl font-bold bg-white" onChange={e => setTitle(e.target.value)} value={title} onBlur={async e => {
+          <input className="mb-3 font-serif text-3xl font-bold w-3/4 bg-white" onChange={e => setTitle(e.target.value)} value={title} onBlur={async e => {
             await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
               method: "PUT",
               mode: "cors",
@@ -44,7 +49,7 @@ export default function Note({ params }: { params: { _id: string }}) {
         }
         <div className="flex justify-between items-center">
           { isEditDescription ?
-            <input className="mb-3 font-serif text-md bg-white w-96" onChange={e => setDescription(e.target.value)} value={description} onBlur={async e => {
+            <input className="mb-3 font-serif text-md bg-white w-3/4" onChange={e => setDescription(e.target.value)} value={description} onBlur={async e => {
               await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
                 method: "PUT",
                 mode: "cors",
@@ -55,13 +60,13 @@ export default function Note({ params }: { params: { _id: string }}) {
               })
               setIsEditDescription(false)
               }}/> :
-            <h2 className="mb-3 font-serif text-md" onClick={() => setIsEditDescription(true)}>{description}</h2>
+            <h2 className="mb-3 font-serif text-md w-3/4 leading-relaxed" onClick={() => setIsEditDescription(true)}>{description}</h2>
           }
           <h2 className="mb-3 font-serif text-md">{date.toLocaleDateString()}</h2>
         </div>
         <hr className="mb-3" />
         { isEditNotes ?
-            <textarea className="mb-3 font-serif text-md bg-white w-96" onChange={e => setNotes(e.target.value)} value={notes} onBlur={async e => {
+            <textarea className="mb-3 font-serif text-md bg-white w-full h-full leading-relaxed" rows={10} onChange={e => setNotes(e.target.value)} value={notes} onBlur={async e => {
               await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
                 method: "PUT",
                 mode: "cors",
@@ -72,7 +77,7 @@ export default function Note({ params }: { params: { _id: string }}) {
               })
               setIsEditNotes(false)
               }} /> :
-            <p className="mb-6 font-serif text-md" onClick={() => setIsEditNotes(true)}>{notes}</p>
+            <p className="mb-6 font-serif text-md whitespace-pre-line leading-relaxed" onClick={() => setIsEditNotes(true)}>{notes}</p>
           }
         <Link href='/calendar/' className="self-start text-black hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] text-center border border-solid border-black p-2 lg:px-4 rounded duration-300 transition-colors"
           data-test-id={`navbar-logout`}
@@ -84,6 +89,7 @@ export default function Note({ params }: { params: { _id: string }}) {
           })}>Delete</Link>
       </div>
       : ''}
+    </div>
     </div>
   )
 }
