@@ -34,7 +34,3 @@ def gen_notes(chunk: str):
         return_likelihoods='NONE')
     return response.generations[0].text
 
-
-
-import cohere
-co = cohere.Client('bFlGhfFebfCjRFPvseWOAp0riM6K0GBtREcjWVYF') # This is your trial API key
