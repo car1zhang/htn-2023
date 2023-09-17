@@ -26,7 +26,7 @@ export default function Calendar() {
             '-ml-1 -mt-1 px-1 sm:px-2 py-1 w-fit bg-secondary text-white rounded-full' : '-ml-1 -mt-1 px-1 sm:px-2 py-1 text-black'
           }>{day}</h1>
           {notes.map(note => ((new Date(year, month, day)).toDateString() === (new Date(note['date'])).toDateString() ?
-            <h1 key={note['_id']} className='font-sans mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer bg-primary border-white overflow-hidden'>
+            <h1 key={note['_id']} className='truncate font-sans mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer bg-primary border-white overflow-hidden'>
               <Link href={'/note/'+note['_id']+'/'}>
                 {note['title']}
               </Link>
