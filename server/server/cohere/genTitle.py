@@ -1,5 +1,5 @@
 import cohere 
-co = cohere.Client(f"{API_KEY}")
+co = cohere.Client(f"bFlGhfFebfCjRFPvseWOAp0riM6K0GBtREcjWVYF")
 
 def get_short_description(transcript: str):
     response = co.summarize( 
