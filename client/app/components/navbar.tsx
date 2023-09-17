@@ -62,7 +62,7 @@ const Navbar = () => {
               <div>
                 
 
-                <Link legacyBehavior href="/login">
+                <Link legacyBehavior href="/">
                   <a
                     className="text-black hover:bg-red-200 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:ml-1 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"
                     data-test-id={`navbar-login`}

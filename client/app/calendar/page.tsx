@@ -26,7 +26,7 @@ export default function Calendar() {
             '-ml-1 -mt-1 px-1 sm:px-2 py-1 w-fit bg-secondary text-white rounded-full' : '-ml-1 -mt-1 px-1 sm:px-2 py-1 text-black'
           }>{day}</h1>
           {notes.map(note => ((new Date(year, month, day)).toDateString() === (new Date(note['date'])).toDateString() ?
-            <h1 key={note['_id']} className='mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer bg-primary border-white overflow-hidden'>
+            <h1 key={note['_id']} className='font-sans mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer bg-primary border-white overflow-hidden'>
               <Link href={'/note/'+note['_id']+'/'}>
                 {note['title']}
               </Link>
@@ -76,7 +76,6 @@ export default function Calendar() {
 
   return (
     <div className="px-64 mb-10">
-      {notes.length ?
         <div className="flex flex-col items-center">
           <h1 className="text-3xl my-3 font-sans text-black">{monthNames[month]} {year}</h1>
           <div className="flex items-center">
@@ -85,7 +84,6 @@ export default function Calendar() {
             <GoChevronRight className="hover:cursor-pointer text-9xl px-2" onClick={nextMonth} />
           </div>
         </div>
-      : ''}
     </div>
   )
 }
