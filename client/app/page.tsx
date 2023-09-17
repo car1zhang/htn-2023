@@ -12,7 +12,7 @@ export default function Home() {
             Made for students, by students
           </h1>
           <h2 className="text-black font-sans mt-6 leading-relaxed">
-            Deepen your understanding and accelerate the learning process with notes that highlight key concepts.
+            Deepen your understanding and accelerate the learning process with powerful notes that highlight key concepts.
           </h2>
         </div>
         <Image className="w-full md:w-80 mt-4 md:mt-24" src={Notebook} alt="" />
