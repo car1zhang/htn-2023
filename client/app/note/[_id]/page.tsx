@@ -1,6 +1,8 @@
 "use client"
 import Link from 'next/link'
 import React from 'react'
+import BackButton from "../../images/back.png"
+import Image from 'next/image'
 
 export default function Note({ params }: { params: { _id: string }}) {
 
@@ -21,10 +23,16 @@ export default function Note({ params }: { params: { _id: string }}) {
   })
 
   return (
+    <div>
+
     <div className="px-72">
+
+
       {title.length > 0 ?
       <div className="my-8 text-black">
-        <h1 className="mb-3 font-serif text-3xl font-bold">{title}</h1>
+        
+        <Link href="/calendar"><h1 className='hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] '> ← Back </h1> </Link>
+        <h1 className="mb-3 mt-3 font-serif text-3xl font-bold">{title}</h1>
         <div className="flex justify-between items-center">
           <h2 className="mb-3 font-serif text-md">{description}</h2>
           <h2 className="mb-3 font-serif text-md">{date.toLocaleDateString()}</h2>
@@ -41,6 +49,7 @@ export default function Note({ params }: { params: { _id: string }}) {
           })}>Delete</Link>
       </div>
       : ''}
+    </div>
     </div>
   )
 }

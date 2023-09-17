@@ -44,19 +44,19 @@ const Navbar = () => {
           >
             {loggedIn === true ? (
               <div>
-                <Link className="ml-8 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors" href="/calendar"> 
+                <Link className="ml-8 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors hover:border-[#7C2D12] bg-transparent hover:bg-red-400/50 hover:text-[#7C2D12]" href="/calendar"> 
                  Calendar</Link>
-                 <Link className="ml-12 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors"  href="/docs "> 
+                 <Link className="ml-12 text-black text-center  mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 lg:mx-4 rounded duration-300 transition-colors hover:border-[#7C2D12] bg-transparent hover:bg-red-400/50 hover:text-[#7C2D12]"  href="/docs "> 
                  Docs</Link>
-                <Link
+                 <Link
                   href="/"
-                  className="text-black hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] text-center border border-solid border-black mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-4 rounded duration-300 transition-colors"
+                  className="text-black hover:border-[#7C2D12] hover:text-[#7C2D12]  text-center border border-solid border-black bg-red-200 mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-4 rounded duration-300 shadow-md "
                   data-test-id={`navbar-logout`}
-                  onClick={() => handleClick()}>
-                  
-                    Log out
-                  
+                  onClick={() => handleClick()}
+                >
+                  Log out
                 </Link>
+
               </div>
             ) : (
               <div>
@@ -64,7 +64,7 @@ const Navbar = () => {
 
                 <Link legacyBehavior href="/">
                   <a
-                    className="text-black hover:bg-red-200 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:ml-1 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors"
+                    className="text-black hover:bg-red-200 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:ml-1 p-2 lg:px-4 lg:mx-2 rounded duration-300 transition-colors shadow-md"
                     data-test-id={`navbar-login`}
                     onClick={(e) => handleClick()}
                   >
