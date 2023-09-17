@@ -22,7 +22,7 @@ export default function RootLayout({
 
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
       </head>
-      <body>{<Navbar/>}{children}</body>
+      <body className="bg-white">{<Navbar/>}{children}</body>
     </html>
   )
 }

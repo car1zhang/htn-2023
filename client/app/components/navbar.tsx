@@ -19,7 +19,7 @@ const Navbar = () => {
             <Link legacyBehavior href="/">
               <a>
                 <h2 className="text-5xl text-black font-title font-bold text-shadow-5xl">
-                  Keynote
+                  Keynotes
                 </h2>
               </a>
             </Link>
