@@ -1,5 +1,6 @@
+from fastapi.encoders import jsonable_encoder
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from .gcs.storage import download_file_into_memory, generate_download_link
 from .gcs import stt as gcs_stt
 from .assemblyai import stt as aai_sst
@@ -11,6 +12,8 @@ from .cohere.genTitle import get_short_description, get_title, gen_notes
 from pymongo import MongoClient
 from .routes import router
 from fastapi.middleware.cors import CORSMiddleware
+
+from .models import Note
 
 app = FastAPI()
 
@@ -40,7 +43,7 @@ async def transcribe_audio(blob_name: str):
     return stt
 
 @app.post("/transcribe-aai")
-async def transcribe_audio_aai(blob_name: str):
+async def transcribe_audio_aai(request: Request, blob_name: str):
     audio_link = generate_download_link(blob_name)
     stt = aai_sst.transcribe(audio_link)
     
@@ -75,6 +78,7 @@ async def transcribe_audio_aai(blob_name: str):
                 continue
 
     notes = []
+    total_note_str = ""
     i=0 
     while i < len(speaker_text):
         batch = speaker_text[i:i+20]
@@ -83,11 +87,27 @@ async def transcribe_audio_aai(blob_name: str):
         batch_notes = gen_notes(batch)
         print(batch_notes)
         notes.append((startTime, batch_notes))
+        total_note_str += batch_notes
         i = min(i+20, len(speaker_text))
         if i == len(speaker_text):
             break
 
-    return notes
+    entire_transcript = "\n".join(text[1] for text in speaker_text)
+
+    mongo_note = Note(
+        title=get_title(entire_transcript),
+        description=get_short_description(entire_transcript),
+        notes=total_note_str,
+        preprompt="",
+        recording_id=blob_name
+    )
+
+    mongo_note_json = jsonable_encoder(mongo_note)
+    new_note = request.app.database["notes"].insert_one(mongo_note_json)
+    created_note = request.app.database["notes"].find_one(
+        {"_id": new_note.inserted_id}
+    )
+    return created_note
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)

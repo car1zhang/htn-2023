@@ -26,7 +26,7 @@ def get_title(transcript: str):
 def gen_notes(chunk: str):
     response = co.generate(
         model='command',
-        prompt='Write bullet point notes that summarise the following information, ignoring non-technical information, phrases and fluff\nUse an objective, 3rd person tone.\n\n1.' + chunk,
+        prompt='Write bullet point notes that summarise the following information, ignoring non-technical information, phrases and fluff\nUse an objective, 3rd person tone.\n\n' + chunk,
         max_tokens=952,
         temperature=0.4,
         k=0,
