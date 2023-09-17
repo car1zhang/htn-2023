@@ -1,4 +1,5 @@
 "use client"
+import Link from 'next/link'
 import React from 'react'
 
 export default function Note({ params }: { params: { _id: string }}) {
@@ -28,8 +29,16 @@ export default function Note({ params }: { params: { _id: string }}) {
           <h2 className="mb-3 font-serif text-md">{description}</h2>
           <h2 className="mb-3 font-serif text-md">{date.toLocaleDateString()}</h2>
         </div>
-        <hr />
-        <p className="my-3 font-serif text-md">{notes}</p>
+        <hr className="mb-3" />
+        <p className="mb-6 font-serif text-md">{notes}</p>
+        <Link href='/calendar/' className="text-black hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] text-center border border-solid border-black p-2 lg:px-4 rounded duration-300 transition-colors"
+          data-test-id={`navbar-logout`}
+          onClick={async () => await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
+            method: "DELETE",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin"
+          })}>Delete</Link>
       </div>
       : ''}
     </div>
