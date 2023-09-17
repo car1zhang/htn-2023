@@ -50,7 +50,7 @@ const Navbar = () => {
                  Docs</Link>
                 <Link
                   href="/"
-                  className="text-black hover:bg-red-100 hover:text-[#7C2D12] text-center border border-solid border-orange-800 mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-4 rounded duration-300 transition-colors"
+                  className="text-black hover:border-[#7C2D12] bg-transparent hover:bg-red-500/50 hover:text-[#7C2D12] text-center border border-solid border-black mt-1 lg:mt-0 lg:ml-4 mr-48 ml-48 p-2 lg:px-4 lg:mx-4 rounded duration-300 transition-colors"
                   data-test-id={`navbar-logout`}
                   onClick={() => handleClick()}>
                   

@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Link from 'next/link';
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
 
 export default function Calendar() {
@@ -26,7 +27,9 @@ export default function Calendar() {
           }>{day}</h1>
           {notes.map(note => ((new Date(year, month, day)).toDateString() === (new Date(note['date'])).toDateString() ?
             <h1 key={note['_id']} className='mt-1 px-2 py-1.5 text-xs rounded-md cursor-pointer bg-primary border-white overflow-hidden'>
-              {note['title']}
+              <Link href={'/note/'+note['_id']+'/'}>
+                {note['title']}
+              </Link>
             </h1>
           : '' ))}
         </div>
