@@ -59,8 +59,9 @@ def delete_book(id: str, request: Request, response: Response):
 
   raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Note with ID {id} not found")
 
-@router.get("/search/{query}", response_description="Search notes", response_model=List[Note])
-def search_notes(query: str, docs: str, request: Request):
-  docs = docs.split("<")
-  results = getTopFiveRelevantThings(query, docs)
-  return results
+@router.get("/search/{query}", response_description="Get top five related documents using reranking", response_model=List[str])
+def get_search_results(query: str, request: Request):
+  docs = list(request.app.database["notes"].find())
+  for doc in docs:
+    doc['description'] = str(doc['description'])
+  return getTopFiveRelevantThings(query, docs)
