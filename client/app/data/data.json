@@ -1,0 +1,57 @@
+ [
+    {
+      "id": "1",
+      "title": "Meeting Notes",
+      "short_desc": "Weekly team meeting",
+      "notes": "Discussed project timeline and deliverables. Action items assigned to team members.",
+      "preprompt": "Prepare project updates",
+      "recording_id": "12345",
+      "date": "2023-09-16"
+    },
+    {
+      "id": "2",
+      "title": "Grocery List",
+      "short_desc": "Shopping for the weekend",
+      "notes": "Milk, eggs, bread, apples, chicken, pasta",
+      "preprompt": "Check the refrigerator",
+      "recording_id": "54321",
+      "date": "2023-09-17"
+    },
+    {
+      "id": "3",
+      "title": "Project Ideas",
+      "short_desc": "Brainstorming session",
+      "notes": "Generated a list of potential project ideas for the upcoming quarter.",
+      "preprompt": "Research market trends",
+      "recording_id": "78901",
+      "date": "2023-09-18"
+    },
+    {
+      "id": "4",
+      "title": "Recipe",
+      "short_desc": "Dinner recipe",
+      "notes": "Ingredients: Chicken, garlic, olive oil, rosemary. Instructions: Preheat oven, marinate chicken, bake at 375°F.",
+      "preprompt": "Get chicken from the fridge",
+      "recording_id": "24680",
+      "date": "2023-09-19"
+    },
+    {
+      "id": "5",
+      "title": "Fitness Goals",
+      "short_desc": "Health and fitness",
+      "notes": "Set fitness goals for the next three months. Plan includes regular workouts and a balanced diet.",
+      "preprompt": "Create workout schedule",
+      "recording_id": "13579",
+      "date": "2023-09-20"
+    },
+    {
+      "id": "6",
+      "title": "Travel Itinerary",
+      "short_desc": "Upcoming trip",
+      "notes": "Flight details: ABC Airlines, Flight 123, Departure at 10:00 AM. Hotel reservation at XYZ Hotel.",
+      "preprompt": "Pack essentials",
+      "recording_id": "11223",
+      "date": "2023-09-21"
+    }
+  ]
+  
