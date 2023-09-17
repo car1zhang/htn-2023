@@ -67,7 +67,7 @@ def get_search_results(query: str, request: Request):
     doc['description'] = str(doc['description'])
   return getTopFiveRelevantThings(query, docs)
 
-@router.get("/chat/{query}", response_description="Returns an answer to user's query based on current note data", response_class=str)
+@router.get("/chat/{id}/{query}", response_description="Returns an answer to user's query based on current note data", response_class=str)
 def chat(id: str, query: str, request: Request):
   doc = request.app.database["notes"].find_one({"_id": id})
   notes = [p for p in doc['notes'].split('\n')]
