@@ -16,6 +16,9 @@ export default function Note({ params }: { params: { _id: string }}) {
   const [isEditDescription, setIsEditDescription] = React.useState(false)
   const [isEditNotes, setIsEditNotes] = React.useState(false)
 
+  const [question, setQuestion] = React.useState('')
+  const [answer, setAnswer] = React.useState('')
+
   React.useEffect(() => {
     fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {'cache': 'no-store'}).then(res => res.json()).then(data => {
       setTitle(data.title)
@@ -65,12 +68,15 @@ export default function Note({ params }: { params: { _id: string }}) {
           <h2 className="mb-3 font-serif text-md">{date.toLocaleDateString()}</h2>
         </div>
         <hr className="mb-3" />
+
           <form onSubmit={e => {
             e.preventDefault()
-            
+            fetch('http://127.0.0.1:8000/notes/chat/'+params._id+'/'+question.replace(' ', '%20')).then(res => res.json()).then(data => setAnswer(data))
           }}>
-            <input placeholder='Ask me anything...' className="bg-white w-full p-3 text-md mb-3" />
+            <input placeholder='Ask me anything...' className="bg-white w-full p-3 text-md mb-3" onChange={e => setQuestion(e.target.value)} />
+            {answer.length ? <p className="mb-3 font-serif text-md leading-relaxed">{answer}</p> : ''}
           </form>
+          
         <hr className="mb-3" />
         { isEditNotes ?
             <textarea className="mb-3 font-serif text-md bg-white w-full h-full leading-relaxed" rows={10} onChange={e => setNotes(e.target.value)} value={notes} onBlur={async e => {
