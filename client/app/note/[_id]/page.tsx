@@ -49,7 +49,7 @@ export default function Note({ params }: { params: { _id: string }}) {
         }
         <div className="flex justify-between items-center">
           { isEditDescription ?
-            <input className="mb-3 font-serif text-md bg-white w-3/4" onChange={e => setDescription(e.target.value)} value={description} onBlur={async e => {
+            <textarea className="mb-3 font-serif text-md bg-white w-3/4 leading-relaxed" onChange={e => setDescription(e.target.value)} value={description} onBlur={async e => {
               await fetch('http://127.0.0.1:8000/notes/'+params._id+'/', {
                 method: "PUT",
                 mode: "cors",
