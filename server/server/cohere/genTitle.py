@@ -1,5 +1,5 @@
 import cohere 
-co = cohere.Client(f"bFlGhfFebfCjRFPvseWOAp0riM6K0GBtREcjWVYF")
+co = cohere.Client(f"60t30veschZlra1cDn6auatOgcI26ySvpkKdFz4B")
 
 def get_short_description(transcript: str):
     response = co.summarize( 

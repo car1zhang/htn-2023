@@ -80,7 +80,9 @@ async def transcribe_audio_aai(blob_name: str):
         batch = speaker_text[i:i+20]
         startTime = batch[0][0]
         batch = "".join([f"{i}. {text}\n" for i, text in enumerate(batch)])
-        notes.append((startTime, gen_title(batch)))
+        batch_notes = gen_notes(batch)
+        print(batch_notes)
+        notes.append((startTime, batch_notes))
         i = min(i+20, len(speaker_text))
         if i == len(speaker_text):
             break
