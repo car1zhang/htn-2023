@@ -7,7 +7,7 @@ from pprint import pprint
 
 from .util.find_dominant_speaker import find_dominant_speaker
 from .util.convert_sec_to_timestamp import seconds_to_timestamp
-from .cohere.genTitle import gen_title
+from .cohere.genTitle import get_short_description, get_title, gen_notes
 from pymongo import MongoClient
 from .routes import router
 from fastapi.middleware.cors import CORSMiddleware
@@ -75,7 +75,7 @@ async def transcribe_audio_aai(blob_name: str):
                 continue
 
     notes = []
-    i=0
+    i=0 
     while i < len(speaker_text):
         batch = speaker_text[i:i+20]
         startTime = batch[0][0]
