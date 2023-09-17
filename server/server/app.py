@@ -8,12 +8,30 @@ from pprint import pprint
 from .util.find_dominant_speaker import find_dominant_speaker
 from .util.convert_sec_to_timestamp import seconds_to_timestamp
 from .cohere.genTitle import gen_title
+from pymongo import MongoClient
+from .routes import router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.on_event("startup")
+def startup_db_client():
+    app.mongodb_client = MongoClient("mongodb+srv://user1:0HzAtrSsEL4CiNEu@cluster0.arp8spe.mongodb.net/")
+    app.database = app.mongodb_client["keynote"]
+
+@app.on_event("shutdown")
+def shutdown_db_client():
+    app.mongodb_client.close()
+
+app.include_router(router, prefix="/notes")
 
 @app.post("/transcribe")
 async def transcribe_audio(blob_name: str):
