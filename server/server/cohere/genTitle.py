@@ -22,3 +22,19 @@ def get_title(transcript: str):
     temperature=0.3,
     ) 
     print('Summary:', response.summary)
+
+def gen_notes(chunk: str):
+    response = co.generate(
+        model='command',
+        prompt='Write bullet point notes that summarise the following information, ignoring non-technical information, phrases and fluff\nUse an objective, 3rd person tone.\n\n1.' + chunk,
+        max_tokens=952,
+        temperature=0.4,
+        k=0,
+        stop_sequences=[],
+        return_likelihoods='NONE')
+    return response.generations[0].text
+
+
+
+import cohere
+co = cohere.Client('bFlGhfFebfCjRFPvseWOAp0riM6K0GBtREcjWVYF') # This is your trial API key

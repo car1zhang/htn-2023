@@ -7,6 +7,7 @@ from pprint import pprint
 
 from .util.find_dominant_speaker import find_dominant_speaker
 from .util.convert_sec_to_timestamp import seconds_to_timestamp
+from .cohere.genTitle import gen_title
 
 app = FastAPI()
 
@@ -53,9 +54,18 @@ async def transcribe_audio_aai(blob_name: str):
                 timeRanges = timeRanges[i:]
                 continue
 
-    pprint(speaker_text)
+    notes = []
+    i=0
+    while i < len(speaker_text):
+        batch = speaker_text[i:i+20]
+        startTime = batch[0][0]
+        batch = "".join([f"{i}. {text}\n" for i, text in enumerate(batch)])
+        notes.append((startTime, gen_title(batch)))
+        i = min(i+20, len(speaker_text))
+        if i == len(speaker_text):
+            break
 
-    return speaker_text
+    return notes
 
 if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)
