@@ -3,6 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from bson.objectid import ObjectId
 from typing import List
 
+from server.cohere.semanticSearch import getTopFiveRelevantThings
+
 from .models import Note, NoteUpdate
 
 router = APIRouter()
@@ -56,3 +58,9 @@ def delete_book(id: str, request: Request, response: Response):
     return response
 
   raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Note with ID {id} not found")
+
+@router.get("/search/{query}", response_description="Search notes", response_model=List[Note])
+def search_notes(query: str, docs: str, request: Request):
+  docs = docs.split("<")
+  results = getTopFiveRelevantThings(query, docs)
+  return results
